@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { MenuIcon, XIcon, PaperAirplaneIcon } from "@heroicons/react/outline"
+import { MenuIcon, XIcon } from "@heroicons/react/outline"
 import { BriefcaseIcon } from "@heroicons/react/solid"
 function Navbar() {
   const [nav, setNav] = useState(false)

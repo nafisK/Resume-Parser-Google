@@ -1,9 +1,10 @@
 import "./App.css"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
 import About from "./components/About"
 import Support from "./components/Support"
+import AllInOne from "./components/AllInOne"
+import Footer from "./components/Footer"
 
 function App() {
   return (
@@ -12,15 +13,8 @@ function App() {
       <Hero />
       <About />
       <Support />
-      {/* <Router>
-        <Routes>
-          <Route path='/' element={} />
-          <Route path='/admin' element={AdminSide} />
-          <Route path='/about' element={<About/>} />
-        </Routes>
-      </Router> */}
-
-      {/* <Footer /> */}
+      <AllInOne />
+      <Footer />
     </div>
   )
 }
