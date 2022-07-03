@@ -1,12 +1,16 @@
 import "./App.css"
-import Button from "react-bootstrap/Button"
-import Navbar from "react-bootstrap/Navbar"
-import Nav from "react-bootstrap/Nav"
-import NavDropdown from "react-bootstrap/NavDropdown"
-import Container from "react-bootstrap/Container"
+import Header from "./Components/Header"
+import Footer from "./Components/Footer"
+import Home from "./Components/userSide/Home"
 
 function App() {
-  return <div className='App'>Hello World</div>
+  return (
+    <div>
+      <Header />
+      <Home />
+      {/* <Footer /> */}
+    </div>
+  )
 }
 
 export default App
