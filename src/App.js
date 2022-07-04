@@ -3,17 +3,17 @@ import Navbar from "./components/Navbar"
 import Front from "./components/Front"
 import Process from "./components/Process"
 import Support from "./components/Support"
-import AllInOne from "./components/AllInOne"
 import Footer from "./components/Footer"
+import Upload from "./components/Upload"
 
 function App() {
   return (
     <div>
       <Navbar />
       <Front />
+      <Upload />
       <Process />
       <Support />
-      <AllInOne />
       <Footer />
     </div>
   )
