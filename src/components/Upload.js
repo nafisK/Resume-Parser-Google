@@ -24,33 +24,14 @@ export default function Upload() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    // axios
-    //   .post(url, {
-    //     name: data.name,
-    //     email: data.email,
-    //     number: data.number,
-    //     file: data.file,
-    //     created: data.created,
-    //   })
-    //   .then(res => {
-    //     console.log(res.data)
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
-
-    // Send a POST request
-    axios({
-      method: "post",
-      url: url,
-      data: {
+    axios
+      .post(url, {
         name: data.name,
         email: data.email,
         number: data.number,
         file: data.file,
         created: data.created,
-      },
-    })
+      })
       .then(res => {
         console.log(res.data)
       })
