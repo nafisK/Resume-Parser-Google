@@ -43,7 +43,7 @@ function Navbar() {
         <li className='border-b-2 border-zinc-300 w-full'>Home</li>
         <li className='border-b-2 border-zinc-300 w-full'>Success</li>
         <li className='border-b-2 border-zinc-300 w-full'>About</li>
-        <div className='flex flex-col' my-4>
+        <div className='flex flex-col my-4'>
           <button className='bg-transparent text-indigo-600 px-8 py-3 mb-4'>
             Sign In
           </button>
