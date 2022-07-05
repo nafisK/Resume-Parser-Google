@@ -3,7 +3,7 @@ import { useState } from "react"
 const axios = require("axios")
 
 export default function Upload() {
-  const url = "http://localhost:4000/"
+  const URL = "http://localhost:4000/upload"
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -11,33 +11,38 @@ export default function Upload() {
     file: null,
     created: new Date(),
   })
+  const [submissionAlert, setSubmissionAlert] = useState(false)
+  const handleClick = () => {
+    setSubmissionAlert(!submissionAlert)
+  }
 
   const handleForm = e => {
     const newData = { ...data }
-    if (e.target.id === "file") {
-      newData[e.target.id] = e.target.files[0]
-    } else {
-      newData[e.target.id] = e.target.value
-      setData(newData)
-    }
+    newData[e.target.id] = e.target.value
+    setData(newData)
   }
 
-  const handleSubmit = e => {
+  const handleFile = event => {
+    const newData = { ...data }
+    newData["file"] = event.target.files[0]
+    setData(newData)
+  }
+
+  const handleSubmit = async e => {
     e.preventDefault()
+    const formData = new FormData()
+    formData.append("name", data.name)
+    formData.append("email", data.email)
+    formData.append("number", data.number)
+    formData.append("file", data.file)
+    formData.append("created", data.created)
+
     axios
-      .post(url, {
-        name: data.name,
-        email: data.email,
-        number: data.number,
-        file: data.file,
-        created: data.created,
-      })
+      .post(URL, formData)
       .then(res => {
-        console.log(res.data)
+        handleClick()
       })
-      .catch(err => {
-        console.log(err)
-      })
+      .catch(err => console.log(err))
   }
 
   return (
@@ -82,12 +87,12 @@ export default function Upload() {
                 />
                 <input
                   required
-                  className='form-control block w-full px-3 py-3 mb-4 text-base font-normal text-gray-700 bg-white bg-clip-padding 
+                  className='form-control block w-full px-6 py-3 mb-4 text-base font-normal text-gray-700 bg-white bg-clip-padding 
                     border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white 
                     focus:border-blue-600 focus:outline-none'
                   type='file'
                   id='file'
-                  onChange={e => handleForm(e)}
+                  onChange={e => handleFile(e)}
                 />
                 <button
                   type='submit'
@@ -95,6 +100,18 @@ export default function Upload() {
                 >
                   Submit
                 </button>
+                {submissionAlert && (
+                  <div
+                    class='p-3 my-3 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800'
+                    role='alert'
+                  >
+                    <span className='font-bold'>
+                      Resume successfully uploaded!
+                    </span>
+                    <br />A recruiter will contact you if your resume fits the
+                    role.
+                  </div>
+                )}
 
                 <div className='text-center text-sm text-grey-dark mt-4'>
                   By signing up, you agree to the Terms of Service and Privacy
