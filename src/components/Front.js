@@ -12,7 +12,7 @@ export default function Front() {
             THE FASTEST & MOST ACCURATE RESUME PARSER IN THE WORLD THAT CONNECTS
             YOU WITH EMPLOYERS
           </p>
-          <button className='py-3 px-6 sm:w-[60%] my-4'>Upload</button>
+          <button className='py-3 px-6 sm:w-[60%] my-4'>Get Started</button>
         </div>
         <div>
           <img src={bgImg} className='w-full h-full' alt='' />

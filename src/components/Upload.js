@@ -1,9 +1,11 @@
+import { storage, db } from "../firebase"
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+import { addDoc, collection } from "firebase/firestore"
 import React from "react"
 import { useState } from "react"
-const axios = require("axios")
+import { v4 as uuidv4 } from "uuid"
 
 export default function Upload() {
-  const URL = "http://localhost:4000/upload"
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -12,6 +14,8 @@ export default function Upload() {
     created: new Date(),
   })
   const [submissionAlert, setSubmissionAlert] = useState(false)
+  const resumeCollectionRef = collection(db, "resumes")
+
   const handleClick = () => {
     setSubmissionAlert(!submissionAlert)
   }
@@ -29,20 +33,38 @@ export default function Upload() {
   }
 
   const handleSubmit = async e => {
+    var fileUrl = ""
     e.preventDefault()
-    const formData = new FormData()
-    formData.append("name", data.name)
-    formData.append("email", data.email)
-    formData.append("number", data.number)
-    formData.append("file", data.file)
-    formData.append("created", data.created)
-
-    axios
-      .post(URL, formData)
-      .then(res => {
+    const storageRef = ref(storage, `/resumes/${uuidv4()}`)
+    const uploadTask = uploadBytesResumable(storageRef, data.file)
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        console.log("Upload is " + progress + "% done")
         handleClick()
-      })
-      .catch(err => console.log(err))
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(url_ => {
+          fileUrl = url_
+          submitDataToServer(fileUrl)
+        })
+      }
+    )
+    console.log(fileUrl)
+  }
+
+  const submitDataToServer = async fileUrl => {
+    await addDoc(resumeCollectionRef, {
+      name: data.name,
+      email: data.email,
+      number: data.number,
+      fileUrl: fileUrl,
+      created: data.created,
+    })
   }
 
   return (
@@ -102,7 +124,7 @@ export default function Upload() {
                 </button>
                 {submissionAlert && (
                   <div
-                    class='p-3 my-3 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800'
+                    className='p-3 my-3 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800'
                     role='alert'
                   >
                     <span className='font-bold'>
