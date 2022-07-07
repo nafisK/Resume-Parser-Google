@@ -1,5 +1,5 @@
 import React from "react"
-import bgImg from "../assets/resume.png"
+import resume from "../assets/resume.png"
 
 export default function Front() {
   return (
@@ -15,7 +15,7 @@ export default function Front() {
           <button className='py-3 px-6 sm:w-[60%] my-4'>Get Started</button>
         </div>
         <div>
-          <img src={bgImg} className='w-full h-full' alt='' />
+          <img src={resume} className='w-full h-full' alt='' />
         </div>
       </div>
     </div>

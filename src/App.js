@@ -1,21 +1,18 @@
 import "./App.css"
-import Navbar from "./components/Navbar"
-import Front from "./components/Front"
-import Process from "./components/Process"
-import Support from "./components/Support"
-import Footer from "./components/Footer"
-import Upload from "./components/Upload"
+import User from "./components/User"
+import Admin from "./components/Admin"
+import Error404 from "./components/error404"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      <Front />
-      <Upload />
-      <Process />
-      <Support />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<User />} />
+        <Route path='/admin' element={<Admin />} />
+        <Route path='*' element={<Error404 />} />
+      </Routes>
+    </Router>
   )
 }
 
