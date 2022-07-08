@@ -10,11 +10,13 @@ export default function Table() {
 
   useEffect(() => {
     const getResumes = async () => {
-      const data = await getDocs(usersCollectionRef)
+      var data = await getDocs(usersCollectionRef)
+
       setResumes(data.docs.map(docs => ({ ...docs.data(), id: docs.id })))
     }
 
     getResumes()
+
     console.log(data)
   }, [])
 
@@ -59,7 +61,7 @@ export default function Table() {
                   .filter(val => {
                     if (searchTerm === "") {
                       return val
-                    } else if (val.name.toLowerCase().includes(searchTerm)) {
+                    } else if (val.resumeString.includes(searchTerm)) {
                       return val
                     }
                   })
